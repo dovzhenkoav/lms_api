@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from lms.models import Course, Lesson
+from lms.models import Course, Lesson, Payments
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -22,4 +22,10 @@ class CourseSerializer(serializers.ModelSerializer):
         if course_lessons:
             return len(course_lessons)
         return 0
+
+
+class PaymentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payments
+        fields = '__all__'
 

@@ -50,4 +50,11 @@ class Payments(models.Model):
     total = models.IntegerField(verbose_name='сумма оплаты')
     payment_method = models.CharField(max_length=8, choices=PAYMENT_CHOICES, verbose_name='способ оплаты')
 
+    def __str__(self):
+        return f'{self.course if self.course else self.lesson} {self.date} {self.total}'
+
+    class Meta:
+        verbose_name = 'платеж'
+        verbose_name_plural = 'платежи'
+
 
