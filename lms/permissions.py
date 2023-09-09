@@ -38,3 +38,17 @@ class UserPermission(BasePermission):
             return request.user.is_admin
         else:
             return False
+
+
+class IsLessonOwner(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user == obj.lesson_owner:
+            return True
+        return False
+
+
+class IsCourseOwner(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user == obj.lesson_owner:
+            return True
+        return False

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 from users.models import User
 
@@ -10,6 +11,7 @@ class Course(models.Model):
     title = models.CharField(max_length=100, verbose_name='название')
     description = models.TextField(verbose_name='описание')
     preview = models.ImageField(upload_to='course/', verbose_name='превью', **NULLABLE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Владелец курса')
 
     def __str__(self):
         return f'{self.title}'
@@ -26,6 +28,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание')
     preview = models.ImageField(upload_to='lesson/', verbose_name='превью', **NULLABLE)
     video_link = models.CharField(max_length=200, verbose_name='видео_ссылка')
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Владелец урока')
 
     def __str__(self):
         return f'{self.title}'
