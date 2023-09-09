@@ -5,16 +5,17 @@ from rest_framework.permissions import IsAuthenticated
 
 from lms.models import Course, Lesson, Payments
 from lms.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer
+from lms.permissions import IsManager, IsNotManager, UserPermission
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [UserPermission]
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsNotManager]
     serializer_class = LessonSerializer
 
 
@@ -31,13 +32,13 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsManager]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsNotManager]
     queryset = Lesson.objects.all()
 
 
