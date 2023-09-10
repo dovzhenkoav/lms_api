@@ -40,7 +40,7 @@ class LessonListAPIView(generics.ListAPIView):
 
             return Lesson.objects.all()
 
-        return Lesson.objects.filter(lesson_owner=self.request.user)
+        return Lesson.objects.filter(owner=self.request.user)
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
@@ -50,7 +50,7 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated, IsManager, IsLessonOwner]
+    permission_classes = [IsAuthenticated, IsLessonOwner]
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
