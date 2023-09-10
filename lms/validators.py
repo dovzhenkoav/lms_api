@@ -7,5 +7,9 @@ class LinkValidator:
 
     def __call__(self, value):
         link: str = dict(value).get(self.field)
+        print(link)
+        print(link)
+        print(link)
+        print(link.startswith('https://youtube.com'))
         if not link.startswith('https://youtube.com'):
-            return ValidationError('Ссылка на материал должна начинаться с "https://youtube.com"')
+            raise ValidationError('Ссылка на материал должна начинаться с "https://youtube.com"')

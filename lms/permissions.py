@@ -17,17 +17,17 @@ class IsNotManager(BasePermission):
 class UserPermission(BasePermission):
     def has_permission(self, request, view):
         if view.action == 'list':
-            return request.user.is_authenticated()
+            return request.user.is_authenticated
         elif view.action in ['create', 'delete']:
-            return request.user.is_authenticated() and not request.user.groups.filter(name='managers').exists()
+            return request.user.is_authenticated and not request.user.groups.filter(name='managers').exists()
         elif view.action in ['update', 'partial_update']:
-            return request.user.is_authenticated() and request.user.groups.filter(name='managers').exists()
+            return request.user.is_authenticated and request.user.groups.filter(name='managers').exists()
         else:
-            return request.user.is_authenticated()
+            return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
         # Deny actions on objects if the user is not authenticated
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return False
 
         if view.action == 'retrieve':
