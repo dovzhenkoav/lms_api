@@ -2,11 +2,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from lms.models import Course, Lesson, Payments, CourseSubscription
 from lms.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer, CourseSubscriptionSerializer
 from lms.permissions import IsManager, IsNotManager, UserPermission, IsLessonOwner, IsCourseOwner
 from lms.paginators import CoursePaginator, LessonPaginator
+
+from lms import services
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -68,6 +72,19 @@ class PaymentsListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('course', 'lesson', 'payment_method')
     ordering_fields = ('date',)
+
+
+class PaymentsCreateAPIView(APIView):
+    def post(self, request):
+        number = request.data['card_number']
+        exp_month = request.data['card_exp_month']
+        exp_year = request.data['card_exp_year']
+        cvc = request.data['card_cvc']
+
+        bill_id = services.create_payment(20000, 'usd')
+        status = services.make_payment(bill_id, number, exp_month, exp_year, cvc)
+
+        return Response({'status': status})
 
 
 class CourseSubscriptionCreateAPIView(generics.CreateAPIView):
