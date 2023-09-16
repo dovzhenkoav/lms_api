@@ -155,3 +155,9 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
 }
+
+
+# Payments
+PAYMENT_PUBLIC_TOKEN = 'pk_test_51NqxaQJNg8bzXA6IMHkhec6RNt9tPlR3jhi791pjLcUq9LY3IjOP0JaLZXuf4rntPzb4unpKRjXlcb72Gv111zOx00sbJHCWQ6'
+PAYMENT_SECRET_TOKEN = 'sk_test_51NqxaQJNg8bzXA6INzMOFGAOc6eWztaFM5ubQEc7brmh84GKZPxehl1grrTbSujo79TTXgtEz8FHbdxAf2cNRgU5008co9Wzpc'
+
