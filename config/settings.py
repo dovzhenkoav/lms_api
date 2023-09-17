@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
 
     'rest_framework',
     'rest_framework_simplejwt',
@@ -160,4 +161,10 @@ SIMPLE_JWT = {
 # Payments
 PAYMENT_PUBLIC_TOKEN = 'pk_test_51NqxaQJNg8bzXA6IMHkhec6RNt9tPlR3jhi791pjLcUq9LY3IjOP0JaLZXuf4rntPzb4unpKRjXlcb72Gv111zOx00sbJHCWQ6'
 PAYMENT_SECRET_TOKEN = 'sk_test_51NqxaQJNg8bzXA6INzMOFGAOc6eWztaFM5ubQEc7brmh84GKZPxehl1grrTbSujo79TTXgtEz8FHbdxAf2cNRgU5008co9Wzpc'
+
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 
