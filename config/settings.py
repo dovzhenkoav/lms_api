@@ -167,4 +167,10 @@ PAYMENT_SECRET_TOKEN = 'sk_test_51NqxaQJNg8bzXA6INzMOFGAOc6eWztaFM5ubQEc7brmh84G
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+# EMAIL SECTION
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@oscarbot.ru'
+EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
+EMAIL_USE_SSL = True
 

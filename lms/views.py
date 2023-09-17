@@ -11,6 +11,7 @@ from lms.permissions import IsManager, IsNotManager, UserPermission, IsLessonOwn
 from lms.paginators import CoursePaginator, LessonPaginator
 
 from lms import services
+from lms.tasks import send_course_update_mail
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -25,6 +26,14 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.all()
 
         return Course.objects.filter(course_owner=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        subs = CourseSubscription.objects.filter(course=instance)
+        users_emails = [sub.user.email for sub in subs]
+        send_course_update_mail.delay(course_title=instance.title, user_emails=users_emails)
+
+        return super().update(request, *args, **kwargs)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):

@@ -31,9 +31,9 @@ class UserPermission(BasePermission):
             return False
 
         if view.action == 'retrieve':
-            return obj == request.user or request.user.is_admin
+            return obj == request.user or request.user.is_staff
         elif view.action in ['update', 'partial_update']:
-            return obj == request.user or request.user.is_admin
+            return obj == request.user or request.user.is_staff
         elif view.action == 'destroy':
             return request.user.is_admin
         else:
