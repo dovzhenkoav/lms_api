@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
+from datetime import timedelta
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,9 +95,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lms_app',
-        'USER': 'postgres',
-        'PASSWORD': '1q2w3e',
+        'NAME': os.getenv('DATABASE_DOCKER'),
+        'USER': os.getenv('POSTGRESSQL_USER'),
+        'PASSWORD': os.getenv('POSTGRESSQL_KEY_DOCKER'),
+        'PORT': '5432',
+        'HOST': 'postgres',
     }
 }
 
@@ -164,8 +172,8 @@ PAYMENT_SECRET_TOKEN = 'sk_test_51NqxaQJNg8bzXA6INzMOFGAOc6eWztaFM5ubQEc7brmh84G
 
 
 # Celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # EMAIL SECTION
 EMAIL_HOST = 'smtp.yandex.ru'
